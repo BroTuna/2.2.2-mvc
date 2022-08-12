@@ -10,6 +10,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+import web.model.Car;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @EnableWebMvc
@@ -17,6 +21,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 public class WebConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;
+    private static int idCars;
 
     public WebConfig(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
@@ -38,6 +43,18 @@ public class WebConfig implements WebMvcConfigurer {
         templateEngine.setTemplateResolver(templateResolver());
         templateEngine.setEnableSpringELCompiler(true);
         return templateEngine;
+    }
+    @Bean
+    public List<Car> carsList() {
+        List<Car> carList = new ArrayList<>();
+
+        carList.add(new Car(++idCars,"VOLVO", "xc60", 2016));
+        carList.add(new Car(++idCars,"KIA", "Rio", 2016));
+        carList.add(new Car(++idCars,"PEJO", "JO", 2022));
+        carList.add(new Car(++idCars,"LADA", "Granta", 2012));
+        carList.add(new Car(++idCars,"HONDA", "Civic", 2010));
+
+        return carList;
     }
 
 
